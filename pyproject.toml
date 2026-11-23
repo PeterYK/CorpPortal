@@ -22,3 +22,10 @@ dev = [
     "pytest-django (>=4.14.0,<5.0.0)",
     "ruff (>=0.17.6,<0.18.0)"
 ]
+
+[tool.poetry]
+name = "corpportal"
+version = "0.1.0"
+description = ""
+authors = ["Petr Kozlov <kozlovpu@answer-42.ru>"]
+package-mode = false
