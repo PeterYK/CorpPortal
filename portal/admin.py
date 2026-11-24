@@ -7,6 +7,7 @@ from .models import (
     Employee,
     InfoArticle,
     Project,
+    Tag,
     Team,
     TimeAllocation,
     UserProfile,
@@ -56,3 +57,7 @@ class TimeAllocationAdmin(admin.ModelAdmin):
     list_display = ['employee', 'project', 'date', 'hours']
     list_filter = ['date', 'project']
 
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
