@@ -29,3 +29,8 @@ version = "0.1.0"
 description = ""
 authors = ["Petr Kozlov <kozlovpu@answer-42.ru>"]
 package-mode = false
+
+[tool.ruff.lint]
+exclude = [
+    "**/migrations/*",
+]
