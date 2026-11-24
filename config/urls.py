@@ -26,7 +26,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from portal.views import WallListView
+from portal.views import WallListView, wall_posts_api, wall_tags_api
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,4 +43,8 @@ urlpatterns = [
     path('useful-info/', TemplateView.as_view(template_name='useful_info.html'), name='useful_info'),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
+
+    # API для получения тегов и постов Стены
+    path("api/wall/posts/", wall_posts_api, name="wall_posts_api"),
+    path("api/wall/tags/", wall_tags_api, name="wall_tags_api"),
 ]
