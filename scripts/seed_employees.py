@@ -1,5 +1,6 @@
-from portal.models import Team, Employee
 from datetime import date
+
+from portal.models import Employee, Team
 
 Employee.objects.all().delete()
 

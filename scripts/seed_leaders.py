@@ -1,4 +1,4 @@
-from portal.models import Team, Employee
+from portal.models import Employee, Team
 
 leaders_map = {
     "Администрация": ["Александр Волков"],

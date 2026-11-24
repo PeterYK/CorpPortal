@@ -1,4 +1,4 @@
-from portal.models import InfoArticle, Employee
+from portal.models import Employee, InfoArticle
 
 InfoArticle.objects.all().delete()
 
