@@ -25,15 +25,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+
+from portal.views import WallListView
  
 urlpatterns = [
     path('admin/', admin.site.urls),
  
     # Главная страница (пока это стена)
-    path('', TemplateView.as_view(template_name='wall.html'), name='home'),
+    # path('', TemplateView.as_view(template_name='wall.html'), name='home'),
+    path('', WallListView.as_view(), name='home'),
  
     # Заготовки основных страниц
-    path('wall/', TemplateView.as_view(template_name='wall.html'), name='wall'),
+    # path('wall/', TemplateView.as_view(template_name='wall.html'), name='wall'),
+    path("wall/", WallListView.as_view(), name="wall"),
     path('colleagues/', TemplateView.as_view(template_name='colleagues.html'), name='colleagues'),
     path('teams/', TemplateView.as_view(template_name='teams.html'), name='teams'),
     path('useful-info/', TemplateView.as_view(template_name='useful_info.html'), name='useful_info'),

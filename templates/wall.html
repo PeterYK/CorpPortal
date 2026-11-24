@@ -1,8 +1,64 @@
 {% extends "base.html" %}
- 
+
 {% block title %}Стена{% endblock %}
- 
+
 {% block content %}
-    <h1>Стена</h1>
-    <p>Здесь будет новостная лента.</p>
+<div class="container py-4">
+    <h1 class="mb-4">Стена</h1>
+
+    <!-- Теги -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <a href="{% url 'wall' %}"
+           class="btn btn-sm {% if not current_tag %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            Все
+        </a>
+
+        {% for tag in tags %}
+            <a href="?tag={{ tag.name }}"
+               class="btn btn-sm {% if current_tag == tag.name %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Список постов -->
+    {% if posts %}
+        <div class="list-group">
+            {% for post in posts %}
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ post.title }}</h5>
+                        <small class="text-muted">{{ post.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                    <p class="mb-1 text-muted">{{ post.content|truncatewords:25 }}</p>
+                    <small class="text-primary">{{ post.tag.name }}</small>
+                    {% if post.company %}
+                        <small class="text-muted d-block">{{ post.company }}</small>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        {% if is_paginated %}
+            <nav class="mt-4">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if current_tag %}&tag={{ current_tag }}{% endif %}">Назад</a>
+                        </li>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if current_tag %}&tag={{ current_tag }}{% endif %}">Вперёд</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% else %}
+        <p class="text-muted">Постов нет.</p>
+    {% endif %}
+</div>
 {% endblock %}
+
