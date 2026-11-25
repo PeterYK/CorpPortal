@@ -1,8 +1,64 @@
 {% extends "base.html" %}
- 
-{% block title %}Коллеги{% endblock %}
- 
+
 {% block content %}
-    <h1>Коллеги</h1>
-    <p>Здесь будет список сотрудников.</p>
+<div class="container py-4">
+    <h1 class="mb-4">Коллеги</h1>
+
+    <!-- Поиск -->
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Поиск по ФИО, должности, городу, команде, почте, телеграм..." value="{{ request.GET.q }}">
+            <button class="btn btn-primary" type="submit">Найти</button>
+            {% if request.GET.q %}
+                <a href="{% url 'colleagues' %}" class="btn btn-outline-secondary">Сбросить</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <!-- Список -->
+    <div class="list-group">
+        {% for emp in employees %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-1">{{ emp.name }}</h5>
+                        <p class="mb-1">{{ emp.position }}</p>
+                        {% if emp.team %}<small class="text-muted">{{ emp.team.name }}</small><br>{% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="list-group-item">Ничего не найдено</div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Первая</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Назад</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Вперёд</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Последняя</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+</div>
 {% endblock %}
+
