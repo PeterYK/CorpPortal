@@ -1,6 +1,13 @@
-from portal.models import WallPost
+from portal.models import Tag, WallPost
 
 WallPost.objects.all().delete()
+Tag.objects.all().delete()
+
+tags_data = ["Новости", "Мероприятия", "Сезонное"]
+for name in tags_data:
+    Tag.objects.get_or_create(name=name)
+
+tags = {tag.name: tag for tag in Tag.objects.all()}
 
 posts = [
     {"tag": "Новости", "title": "Запуск нового корпоративного портала", "content": "Мы рады сообщить о запуске обновлённого мобильного приложения корпоративного портала. Теперь все сервисы компании доступны в одном месте.", "company": "ООО \"Технологии\""},
@@ -21,6 +28,12 @@ posts = [
 ]
 
 for data in posts:
-    WallPost.objects.create(**data)
+    WallPost.objects.create(
+        tag=tags[data["tag"]],
+        title=data["title"],
+        content=data["content"],
+        company=data["company"],
+    )
 
+print(f"Создано тегов: {Tag.objects.count()}")
 print(f"Создано постов: {WallPost.objects.count()}")

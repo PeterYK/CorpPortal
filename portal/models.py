@@ -97,7 +97,12 @@ class Team(models.Model):
 
 class WallPost(models.Model):
     """Пост на корпоративной стене."""
-    tag = models.CharField(max_length=50, verbose_name="Тег")
+    tag = models.ForeignKey(
+        'Tag',
+        on_delete=models.PROTECT,
+        verbose_name="Тег",
+        related_name="posts"
+    )
     title = models.CharField(max_length=500, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
     company = models.CharField(max_length=255, blank=True, verbose_name="Компания")
@@ -169,3 +174,15 @@ class TimeAllocation(models.Model):
 
     def __str__(self):
         return f"{self.employee.name} — {self.project.name} ({self.date})"
+
+class Tag(models.Model):
+    """Тег поста."""
+    name = models.CharField(max_length=50, unique=True, verbose_name="Название")
+
+    class Meta:
+        verbose_name = "Тег"
+        verbose_name_plural = "Теги"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
