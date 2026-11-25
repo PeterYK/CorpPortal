@@ -1,8 +1,13 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Employee, Tag, WallPost
-from .serializers import EmployeeSerializer, TagSerializer, WallPostSerializer
+from .models import Employee, Tag, Team, WallPost
+from .serializers import (
+    EmployeeSerializer,
+    TagSerializer,
+    TeamSerializer,
+    WallPostSerializer,
+)
 
 
 class WallPostListAPI(generics.ListAPIView):
@@ -31,3 +36,8 @@ class EmployeeListAPI(generics.ListAPIView):
 
     def get_queryset(self):
         return Employee.objects.select_related("team", "manager").order_by("name")
+
+
+class TeamListAPI(generics.ListAPIView):
+    queryset = Team.objects.all().order_by("name")
+    serializer_class = TeamSerializer
