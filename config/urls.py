@@ -26,21 +26,24 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
+from portal.api_views import TagListAPI, WallPostListAPI
 from portal.views import WallListView
  
 urlpatterns = [
     path('admin/', admin.site.urls),
  
     # Главная страница (пока это стена)
-    # path('', TemplateView.as_view(template_name='wall.html'), name='home'),
     path('', WallListView.as_view(), name='home'),
  
     # Заготовки основных страниц
-    # path('wall/', TemplateView.as_view(template_name='wall.html'), name='wall'),
     path("wall/", WallListView.as_view(), name="wall"),
     path('colleagues/', TemplateView.as_view(template_name='colleagues.html'), name='colleagues'),
     path('teams/', TemplateView.as_view(template_name='teams.html'), name='teams'),
     path('useful-info/', TemplateView.as_view(template_name='useful_info.html'), name='useful_info'),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
+
+    # API для мобильного приложения
+    path("api/wall/posts/", WallPostListAPI.as_view(), name="api_wall_posts"),
+    path("api/wall/tags/", TagListAPI.as_view(), name="api_wall_tags"),
 ]
