@@ -2,7 +2,7 @@
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .models import Employee, Tag, WallPost
+from .models import Employee, Tag, Team, WallPost
 
 
 class WallListView(ListView):
@@ -43,3 +43,11 @@ class ColleaguesListView(ListView):
                 Q(telegram__icontains=q)
             )
         return qs
+
+class TeamsListView(ListView):
+    model = Team
+    template_name = "teams.html"
+    context_object_name = "teams"
+
+    def get_queryset(self):
+        return Team.objects.all().order_by("name")

@@ -31,3 +31,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ["id", "name", "position", "team", "manager_name", "city", "email", "telegram", "birthday"]
         
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ["id", "name", "description", "mascot_icon"]
