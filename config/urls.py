@@ -26,8 +26,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from portal.api_views import TagListAPI, WallPostListAPI
-from portal.views import WallListView
+from portal.api_views import EmployeeListAPI, TagListAPI, WallPostListAPI
+from portal.views import ColleaguesListView, WallListView
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,8 +37,8 @@ urlpatterns = [
  
     # Заготовки основных страниц
     path("wall/", WallListView.as_view(), name="wall"),
-    path('colleagues/', TemplateView.as_view(template_name='colleagues.html'), name='colleagues'),
-    path('teams/', TemplateView.as_view(template_name='teams.html'), name='teams'),
+    path("colleagues/", ColleaguesListView.as_view(), name="colleagues"),
+        path('teams/', TemplateView.as_view(template_name='teams.html'), name='teams'),
     path('useful-info/', TemplateView.as_view(template_name='useful_info.html'), name='useful_info'),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
@@ -46,4 +46,5 @@ urlpatterns = [
     # API для мобильного приложения
     path("api/wall/posts/", WallPostListAPI.as_view(), name="api_wall_posts"),
     path("api/wall/tags/", TagListAPI.as_view(), name="api_wall_tags"),
+    path("api/colleagues/", EmployeeListAPI.as_view(), name="api_colleagues"),
 ]
