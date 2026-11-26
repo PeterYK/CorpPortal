@@ -65,3 +65,7 @@ class WallPostDetailView(DetailView):
     template_name = "wall_post_detail.html"
     context_object_name = "post"
 
+class EmployeeDetailView(DetailView):
+    model = Employee
+    template_name = "employee_detail.html"
+    context_object_name = "employee"

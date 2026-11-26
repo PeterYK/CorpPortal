@@ -20,6 +20,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from portal.api_views import (
+    EmployeeDetailAPI,
     EmployeeListAPI,
     InfoArticleListAPI,
     TagListAPI,
@@ -29,6 +30,7 @@ from portal.api_views import (
 )
 from portal.views import (
     ColleaguesListView,
+    EmployeeDetailView,
     TeamsListView,
     UsefulInfoListView,
     WallListView,
@@ -44,6 +46,7 @@ urlpatterns = [
     # Заготовки основных страниц
     path("wall/", WallListView.as_view(), name="wall"),
     path("colleagues/", ColleaguesListView.as_view(), name="colleagues"),
+    path("colleagues/<int:pk>/", EmployeeDetailView.as_view(), name="employee_detail"),
     path("teams/", TeamsListView.as_view(), name="teams"),
     path("useful-info/", UsefulInfoListView.as_view(), name="useful_info"),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
@@ -57,6 +60,7 @@ urlpatterns = [
     path("api/wall/posts/<int:pk>/", WallPostDetailAPI.as_view(), name="api_wall_post_detail"),
     path("api/wall/tags/", TagListAPI.as_view(), name="api_wall_tags"),
     path("api/colleagues/", EmployeeListAPI.as_view(), name="api_colleagues"),
+    path("api/colleagues/<int:pk>/", EmployeeDetailAPI.as_view(), name="api_employee_detail"),
     path("api/teams/", TeamListAPI.as_view(), name="api_teams"),
     path("api/useful-info/", InfoArticleListAPI.as_view(), name="api_useful_info"),
 ]

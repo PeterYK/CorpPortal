@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{{ employee.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <a href="{% url 'colleagues' %}" class="btn btn-outline-secondary mb-3">
+        ← Назад к коллегам
+    </a>
+
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title mb-1">{{ employee.name }}</h1>
+            <h5 class="text-muted mb-4">{{ employee.position }}</h5>
+
+            <dl class="row">
+                {% if employee.team %}
+                    <dt class="col-sm-3">Команда</dt>
+                    <dd class="col-sm-9">{{ employee.team.name }}</dd>
+                {% endif %}
+
+                {% if employee.manager %}
+                    <dt class="col-sm-3">Руководитель</dt>
+                    <dd class="col-sm-9">
+                        <a href="{% url 'employee_detail' employee.manager.pk %}">{{ employee.manager.name }}</a>
+                        <small class="text-muted">({{ employee.manager.position }})</small>
+                    </dd>
+                {% endif %}
+
+                {% if employee.city %}
+                    <dt class="col-sm-3">Город</dt>
+                    <dd class="col-sm-9">{{ employee.city }}</dd>
+                {% endif %}
+
+                {% if employee.birthday %}
+                    <dt class="col-sm-3">День рождения</dt>
+                    <dd class="col-sm-9">{{ employee.birthday|date:"d.m.Y" }}</dd>
+                {% endif %}
+
+                {% if employee.email %}
+                    <dt class="col-sm-3">Почта</dt>
+                    <dd class="col-sm-9">
+                        <a href="mailto:{{ employee.email }}">{{ employee.email }}</a>
+                    </dd>
+                {% endif %}
+
+                {% if employee.telegram %}
+                    <dt class="col-sm-3">Telegram</dt>
+                    <dd class="col-sm-9">
+                        <a href="https://t.me/{{ employee.telegram|cut:'@' }}" target="_blank">
+                            {{ employee.telegram }}
+                        </a>
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+</div>
+{% endblock %}
