@@ -3,6 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from .models import Employee, InfoArticle, Tag, Team, WallPost
 from .serializers import (
+    EmployeeDetailSerializer,
     EmployeeSerializer,
     InfoArticleSerializer,
     TagSerializer,
@@ -48,4 +49,7 @@ class InfoArticleListAPI(generics.ListAPIView):
 class WallPostDetailAPI(generics.RetrieveAPIView):
     queryset = WallPost.objects.select_related("tag")
     serializer_class = WallPostSerializer
-    
+
+class EmployeeDetailAPI(generics.RetrieveAPIView):
+    queryset = Employee.objects.select_related("team", "manager")
+    serializer_class = EmployeeDetailSerializer
