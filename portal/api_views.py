@@ -1,9 +1,10 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Employee, Tag, Team, WallPost
+from .models import Employee, InfoArticle, Tag, Team, WallPost
 from .serializers import (
     EmployeeSerializer,
+    InfoArticleSerializer,
     TagSerializer,
     TeamSerializer,
     WallPostSerializer,
@@ -29,7 +30,6 @@ class EmployeePagination(PageNumberPagination):
     page_size_query_param = "page_size"
     max_page_size = 100
 
-
 class EmployeeListAPI(generics.ListAPIView):
     serializer_class = EmployeeSerializer
     pagination_class = EmployeePagination
@@ -37,7 +37,10 @@ class EmployeeListAPI(generics.ListAPIView):
     def get_queryset(self):
         return Employee.objects.select_related("team", "manager").order_by("name")
 
-
 class TeamListAPI(generics.ListAPIView):
     queryset = Team.objects.all().order_by("name")
     serializer_class = TeamSerializer
+
+class InfoArticleListAPI(generics.ListAPIView):
+    queryset = InfoArticle.objects.all().order_by("title")
+    serializer_class = InfoArticleSerializer

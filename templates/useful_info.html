@@ -1,8 +1,21 @@
 {% extends "base.html" %}
- 
-{% block title %}Полезная информация{% endblock %}
- 
+
 {% block content %}
-    <h1>Полезная информация</h1>
-    <p>Здесь будут статьи и полезные материалы.</p>
+<div class="container py-4">
+    <h1 class="mb-4">Полезная информация</h1>
+
+    <div class="list-group">
+        {% for article in articles %}
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ article.title }}</h5>
+                </div>
+                <p class="mb-1 text-muted">{{ article.content|truncatewords:30 }}</p>
+            </a>
+        {% empty %}
+            <div class="list-group-item">Статьи пока не добавлены</div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
+

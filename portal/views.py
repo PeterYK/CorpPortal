@@ -2,7 +2,7 @@
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .models import Employee, Tag, Team, WallPost
+from .models import Employee, InfoArticle, Tag, Team, WallPost
 
 
 class WallListView(ListView):
@@ -51,3 +51,11 @@ class TeamsListView(ListView):
 
     def get_queryset(self):
         return Team.objects.all().order_by("name")
+
+class UsefulInfoListView(ListView):
+    model = InfoArticle
+    template_name = "useful_info.html"
+    context_object_name = "articles"
+
+    def get_queryset(self):
+        return InfoArticle.objects.all().order_by("title")
