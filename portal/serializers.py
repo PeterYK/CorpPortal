@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from .models import Employee, Tag, Team, WallPost
+from .models import Employee, InfoArticle, Tag, Team, WallPost
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -35,3 +35,8 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ["id", "name", "description", "mascot_icon"]
+
+class InfoArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InfoArticle
+        fields = ["id", "title", "content"]

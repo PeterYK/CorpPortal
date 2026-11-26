@@ -15,19 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# from django.contrib import admin
-# from django.urls import path
-
-# urlpatterns = [
-#     path("admin/", admin.site.urls),
-# ]
-
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
-from portal.api_views import EmployeeListAPI, TagListAPI, TeamListAPI, WallPostListAPI
-from portal.views import ColleaguesListView, TeamsListView, WallListView
+from portal.api_views import (
+    EmployeeListAPI,
+    InfoArticleListAPI,
+    TagListAPI,
+    TeamListAPI,
+    WallPostListAPI,
+)
+from portal.views import (
+    ColleaguesListView,
+    TeamsListView,
+    UsefulInfoListView,
+    WallListView,
+)
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +43,7 @@ urlpatterns = [
     path("wall/", WallListView.as_view(), name="wall"),
     path("colleagues/", ColleaguesListView.as_view(), name="colleagues"),
     path("teams/", TeamsListView.as_view(), name="teams"),
-    path('useful-info/', TemplateView.as_view(template_name='useful_info.html'), name='useful_info'),
+    path("useful-info/", UsefulInfoListView.as_view(), name="useful_info"),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
 
@@ -48,4 +52,5 @@ urlpatterns = [
     path("api/wall/tags/", TagListAPI.as_view(), name="api_wall_tags"),
     path("api/colleagues/", EmployeeListAPI.as_view(), name="api_colleagues"),
     path("api/teams/", TeamListAPI.as_view(), name="api_teams"),
+    path("api/useful-info/", InfoArticleListAPI.as_view(), name="api_useful_info"),
 ]
