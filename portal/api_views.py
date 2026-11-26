@@ -44,3 +44,8 @@ class TeamListAPI(generics.ListAPIView):
 class InfoArticleListAPI(generics.ListAPIView):
     queryset = InfoArticle.objects.all().order_by("title")
     serializer_class = InfoArticleSerializer
+
+class WallPostDetailAPI(generics.RetrieveAPIView):
+    queryset = WallPost.objects.select_related("tag")
+    serializer_class = WallPostSerializer
+    
