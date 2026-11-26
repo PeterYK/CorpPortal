@@ -24,6 +24,7 @@ from portal.api_views import (
     InfoArticleListAPI,
     TagListAPI,
     TeamListAPI,
+    WallPostDetailAPI,
     WallPostListAPI,
 )
 from portal.views import (
@@ -31,6 +32,7 @@ from portal.views import (
     TeamsListView,
     UsefulInfoListView,
     WallListView,
+    WallPostDetailView,
 )
  
 urlpatterns = [
@@ -47,8 +49,12 @@ urlpatterns = [
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
 
+    # Отдальные страницы
+    path("wall/<int:pk>/", WallPostDetailView.as_view(), name="wall_post_detail"),
+
     # API для мобильного приложения
     path("api/wall/posts/", WallPostListAPI.as_view(), name="api_wall_posts"),
+    path("api/wall/posts/<int:pk>/", WallPostDetailAPI.as_view(), name="api_wall_post_detail"),
     path("api/wall/tags/", TagListAPI.as_view(), name="api_wall_tags"),
     path("api/colleagues/", EmployeeListAPI.as_view(), name="api_colleagues"),
     path("api/teams/", TeamListAPI.as_view(), name="api_teams"),

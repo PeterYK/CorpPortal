@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    {% with page=request.GET.page tag=request.GET.tag %}
+    <a href="{% url 'wall' %}{% if page or tag %}?{% endif %}{% if page %}page={{ page }}{% endif %}{% if page and tag %}&{% endif %}{% if tag %}tag={{ tag }}{% endif %}"
+    class="btn btn-outline-secondary mb-3">
+        ← Назад к стене
+    </a>
+    {% endwith %}
+
+    <article class="card">
+        <div class="card-body">
+            <h1 class="card-title mb-3">{{ post.title }}</h1>
+            <div class="text-muted mb-3">
+                <small>{{ post.created_at|date:"d.m.Y H:i" }}</small>
+                {% if post.tag %}
+                    <span class="badge bg-primary ms-2">{{ post.tag.name }}</span>
+                {% endif %}
+            </div>
+            <div class="card-text" style="white-space: pre-wrap;">{{ post.content }}</div>
+            {% if post.company %}
+                <p class="mt-4 text-muted"><small>{{ post.company }}</small></p>
+            {% endif %}
+        </div>
+    </article>
+</div>
+{% endblock %}

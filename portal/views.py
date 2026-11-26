@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.db.models import Q
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 
 from .models import Employee, InfoArticle, Tag, Team, WallPost
 
@@ -59,3 +59,9 @@ class UsefulInfoListView(ListView):
 
     def get_queryset(self):
         return InfoArticle.objects.all().order_by("title")
+
+class WallPostDetailView(DetailView):
+    model = WallPost
+    template_name = "wall_post_detail.html"
+    context_object_name = "post"
+
