@@ -4,9 +4,14 @@
 
 {% block content %}
 <div class="container py-4">
-    <a href="{% url 'colleagues' %}" class="btn btn-outline-secondary mb-3">
-        ← Назад к коллегам
-    </a>
+    <div class="mb-4">
+        <button onclick="history.back()" class="btn btn-outline-secondary me-2">
+            ← Назад
+        </button>
+        <a href="{% url 'colleagues' %}" class="btn btn-outline-primary">
+            К коллегам
+        </a>
+    </div>
 
     <div class="card">
         <div class="card-body">
@@ -17,7 +22,7 @@
                 {% if employee.team %}
                     <dt class="col-sm-3">Команда</dt>
                     <dd class="col-sm-9">
-                        <a href=#>{{ employee.team.name }}</a>
+                        <a href="{% url 'team_detail' employee.team.pk %}">{{ employee.team.name }}</a>
                     </dd>
                 {% endif %}
 

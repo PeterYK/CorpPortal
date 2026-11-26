@@ -44,3 +44,11 @@ class InfoArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = InfoArticle
         fields = ["id", "title", "content"]
+
+class TeamDetailSerializer(serializers.ModelSerializer):
+    leaders = EmployeeSerializer(many=True, read_only=True)
+    members = EmployeeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Team
+        fields = ["id", "name", "description", "mascot_icon", "leaders", "members"]

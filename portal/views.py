@@ -69,3 +69,8 @@ class EmployeeDetailView(DetailView):
     model = Employee
     template_name = "employee_detail.html"
     context_object_name = "employee"
+
+class TeamDetailView(DetailView):
+    model = Team
+    template_name = "team_detail.html"
+    context_object_name = "team"

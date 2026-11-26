@@ -24,6 +24,7 @@ from portal.api_views import (
     EmployeeListAPI,
     InfoArticleListAPI,
     TagListAPI,
+    TeamDetailAPI,
     TeamListAPI,
     WallPostDetailAPI,
     WallPostListAPI,
@@ -31,6 +32,7 @@ from portal.api_views import (
 from portal.views import (
     ColleaguesListView,
     EmployeeDetailView,
+    TeamDetailView,
     TeamsListView,
     UsefulInfoListView,
     WallListView,
@@ -48,6 +50,7 @@ urlpatterns = [
     path("colleagues/", ColleaguesListView.as_view(), name="colleagues"),
     path("colleagues/<int:pk>/", EmployeeDetailView.as_view(), name="employee_detail"),
     path("teams/", TeamsListView.as_view(), name="teams"),
+    path("teams/<int:pk>/", TeamDetailView.as_view(), name="team_detail"),
     path("useful-info/", UsefulInfoListView.as_view(), name="useful_info"),
     path('time-allocation/', TemplateView.as_view(template_name='time_allocation.html'), name='time_allocation'),
     path('profile/', TemplateView.as_view(template_name='profile.html'), name='profile'),
@@ -63,4 +66,5 @@ urlpatterns = [
     path("api/colleagues/<int:pk>/", EmployeeDetailAPI.as_view(), name="api_employee_detail"),
     path("api/teams/", TeamListAPI.as_view(), name="api_teams"),
     path("api/useful-info/", InfoArticleListAPI.as_view(), name="api_useful_info"),
+    path("api/teams/<int:pk>/", TeamDetailAPI.as_view(), name="api_team_detail"),
 ]

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ team.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="mb-4">
+        <button onclick="history.back()" class="btn btn-outline-secondary me-2">
+            ← Назад
+        </button>
+        <a href="{% url 'teams' %}" class="btn btn-outline-primary">
+            К командам
+        </a>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1 class="card-title">{{ team.name }}</h1>
+            {% if team.description %}
+                <p class="card-text">{{ team.description }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if team.leaders.all %}
+        <h3>Руководители</h3>
+        <div class="list-group mb-4">
+            {% for leader in team.leaders.all %}
+                <a href="{% url 'employee_detail' leader.pk %}" class="list-group-item list-group-item-action">
+                    <strong>{{ leader.name }}</strong><br>
+                    <small class="text-muted">{{ leader.position }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <h3>Сотрудники</h3>
+    <div class="list-group">
+        {% for member in team.members.all %}
+            <a href="{% url 'employee_detail' member.pk %}" class="list-group-item list-group-item-action">
+                <strong>{{ member.name }}</strong><br>
+                <small class="text-muted">{{ member.position }}</small>
+            </a>
+        {% empty %}
+            <div class="list-group-item">Сотрудников нет</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
