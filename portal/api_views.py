@@ -6,6 +6,7 @@ from .serializers import (
     EmployeeSerializer,
     InfoArticleSerializer,
     TagSerializer,
+    TeamDetailSerializer,
     TeamSerializer,
     WallPostSerializer,
 )
@@ -52,3 +53,7 @@ class WallPostDetailAPI(generics.RetrieveAPIView):
 class EmployeeDetailAPI(generics.RetrieveAPIView):
     queryset = Employee.objects.select_related("team", "manager")
     serializer_class = EmployeeSerializer
+
+class TeamDetailAPI(generics.RetrieveAPIView):
+    queryset = Team.objects.prefetch_related("leaders", "members")
+    serializer_class = TeamDetailSerializer
