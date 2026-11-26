@@ -16,7 +16,9 @@
             <dl class="row">
                 {% if employee.team %}
                     <dt class="col-sm-3">Команда</dt>
-                    <dd class="col-sm-9">{{ employee.team.name }}</dd>
+                    <dd class="col-sm-9">
+                        <a href=#>{{ employee.team.name }}</a>
+                    </dd>
                 {% endif %}
 
                 {% if employee.manager %}

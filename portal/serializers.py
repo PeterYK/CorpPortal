@@ -21,18 +21,15 @@ class TeamShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ["id", "name"]
-
+  
+             
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ["id", "name", "description", "mascot_icon"]
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    team = TeamShortSerializer(read_only=True)
-    manager_name = serializers.CharField(source="manager.name", read_only=True, allow_null=True)
-
-    class Meta:
-        model = Employee
-        fields = ["id", "name", "position", "team", "manager_name", "city", "email", "telegram", "birthday"]
-
-class EmployeeDetailSerializer(serializers.ModelSerializer):
-    team = serializers.CharField(source="team.name", read_only=True, allow_null=True)
+    team = TeamSerializer(read_only=True, allow_null=True)
     manager_id = serializers.IntegerField(source="manager.id", read_only=True, allow_null=True)
     manager_name = serializers.CharField(source="manager.name", read_only=True, allow_null=True)
 
@@ -41,12 +38,7 @@ class EmployeeDetailSerializer(serializers.ModelSerializer):
         fields = [
             "id", "name", "position", "city", "birthday",
             "email", "telegram", "team", "manager_id", "manager_name"
-        ]   
-             
-class TeamSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Team
-        fields = ["id", "name", "description", "mascot_icon"]
+        ]
 
 class InfoArticleSerializer(serializers.ModelSerializer):
     class Meta:
